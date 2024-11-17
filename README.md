@@ -17,7 +17,7 @@ git clone https://github.com/L0G1H/deepfake_generator.git
 Change to the directory of the cloned repository:
 
 ```bash
-cd deepfake-generator
+cd deepfake_generator
 ```
 
 ### 3. Create and activate a virtual environment (Optional)
@@ -98,20 +98,3 @@ You can swap faces in a video by applying the face swapping process to each fram
    deepfake img path > /path/to/deepfake_face.jpg
    output video path > /path/to/output_video.mp4
    ```
-
-### Example Code Usage
-
-If you want to use the generator programmatically in a Python script:
-
-```python
-model_url = "https://www.dropbox.com/scl/fi/tx59r655h4ke5414s80o3/inswapper_128.onnx?rlkey=p9ktqp27w1bxzc3s30dzb9832&st=du2h5t6t&dl=1"
-model_path = "inswapper_128.onnx"
-
-generator = DeepfakeGenerator(model_url, model_path)
-
-# Create photo deepfake
-generator.get_photo_deepfake("path_to_main_image.jpg", "path_to_deepfake_image.jpg", "output_image.jpg")
-
-# Create video deepfake
-generator.get_video_deepfake("path_to_video.mp4", "path_to_deepfake_image.jpg", "output_video.mp4")
-```

@@ -2,12 +2,6 @@ import os
 import urllib.request
 import insightface
 import cv2
-import matplotlib.pyplot as plt
-
-
-def show_img(img):
-    plt.imshow(img[:, :, ::-1])
-    plt.show()
 
 
 class DeepfakeGenerator:
@@ -86,10 +80,28 @@ class DeepfakeGenerator:
         self.write_frames_to_video(deepfake_imgs, output_path, fps)
 
     def get_photo_deepfake(self, main_img_path: str, deepfake_img_path: str, output_path: str):
+        main_img_path = os.path.expanduser(main_img_path)
+        deepfake_img_path = os.path.expanduser(deepfake_img_path)
+        output_path = os.path.expanduser(output_path)
+
+        if not os.path.exists(main_img_path):
+            print(f"Error: {main_img_path} does not exist.")
+            return
+        if not os.path.exists(deepfake_img_path):
+            print(f"Error: {deepfake_img_path} does not exist.")
+            return
+
         main_img = cv2.imread(main_img_path)
-        main_faces = self.load_face(main_img, multiple=True)
+        if main_img is None:
+            print(f"Error: Failed to load image at {main_img_path}")
+            return
 
         deepfake_img = cv2.imread(deepfake_img_path)
+        if deepfake_img is None:
+            print(f"Error: Failed to load image at {deepfake_img_path}")
+            return
+
+        main_faces = self.load_face(main_img, multiple=True)
         deepfake_face = self.load_face(deepfake_img, multiple=False)
 
         res = main_img.copy()
@@ -98,6 +110,7 @@ class DeepfakeGenerator:
             res = self.swapper.get(res, main_face, deepfake_face, paste_back=True)
 
         cv2.imwrite(output_path, res)
+        print(f"{output_path} created.")
 
 
 def main():
@@ -107,8 +120,7 @@ def main():
     generator = DeepfakeGenerator(model_url, model_path)
 
     while True:
-        for _ in range(10):
-            print()
+        print("\n" * 10)
 
         print("choices: 'photo', 'video', 'exit'")
 
@@ -123,7 +135,6 @@ def main():
 
             generator.get_photo_deepfake(main_img_path, deepfake_img_path, output_img_path)
 
-            print(f"{output_img_path} created.")
         elif answer == "video":
             main_video_path = input("main video path > ")
             deepfake_img_path = input("deepfake img path > ")

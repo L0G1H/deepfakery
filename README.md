@@ -69,7 +69,7 @@ You can swap faces in a video by applying the face swapping process to each fram
    After installing the dependencies, simply run the Python script:
 
    ```bash
-   python deepfake_generator.py
+   python deepfake.py
    ```
 
 2. **Choices**: The program will prompt you to choose between the following options:

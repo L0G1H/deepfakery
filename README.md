@@ -1,44 +1,95 @@
+Sure! Here's an updated version of the README with instructions on how to clone the repository, navigate to the project folder, and set up the environment for the deepfake generator.
+
+---
+
 # Deepfake Generator
 
 This project implements a deepfake generator using the InsightFace library to swap faces between images or video frames. The primary functionality involves using a pre-trained model for face swapping on photos and videos. The generator takes a source image or video (main) and a target image (deepfake face) and creates a new image or video with the swapped faces.
 
-## Requirements
+## Prerequisites
 
-Before running this project, ensure the following Python packages are installed:
+Before running this project, you need to clone the repository and install the required dependencies.
 
-- `opencv-python` (cv2)
-- `insightface`
-- `matplotlib`
-- `urllib`
-- `os`
+## Setup Instructions
 
-You can install the required libraries using pip:
+### 1. Clone the repository
+
+Start by cloning this repository to your local machine. Open a terminal and run:
 
 ```bash
-pip install opencv-python insightface matplotlib
+git clone https://github.com/yourusername/deepfake-generator.git
 ```
+
+Replace `https://github.com/yourusername/deepfake-generator.git` with the actual URL of the repository if it's hosted somewhere.
+
+### 2. Navigate to the project folder
+
+Change to the directory of the cloned repository:
+
+```bash
+cd deepfake-generator
+```
+
+### 3. Create and activate a virtual environment (Optional but recommended)
+
+It's recommended to create a virtual environment to manage the dependencies. Run the following commands to set up and activate the environment:
+
+#### On macOS/Linux:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+#### On Windows:
+
+```bash
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+### 4. Install dependencies
+
+Once you are in the project folder and the virtual environment is activated, install the required dependencies using:
+
+```bash
+pip install -r requirements.txt
+```
+
+This will install all the libraries required to run the deepfake generator.
+
+---
 
 ## Usage
 
-1. **Photo Deepfake**: You can swap faces between a target image (deepfake face) and a main image (the image where the face will be replaced).
+### 1. **Photo Deepfake**
 
-2. **Video Deepfake**: You can swap faces in a video by applying the face swapping process to each frame.
+You can swap faces between a target image (deepfake face) and a main image (the image where the face will be replaced).
 
-### Run the Script
+### 2. **Video Deepfake**
 
-1. **Launch the program**: Simply run the Python script.
-   
+You can swap faces in a video by applying the face swapping process to each frame.
+
+---
+
+### Running the Script
+
+1. **Launch the program**:
+
+   After installing the dependencies, simply run the Python script:
+
    ```bash
    python deepfake_generator.py
    ```
 
-2. **Choices**: The program will ask for one of the following options:
+2. **Choices**: The program will prompt you to choose between the following options:
    - **'photo'**: Swap faces between a photo and a deepfake face.
    - **'video'**: Swap faces between a video and a deepfake face.
    - **'exit'**: Exit the program.
 
-   Example input for photo:
+3. **Example input for photo**:
 
+   When you choose the **'photo'** option, the program will ask for the following paths:
    ```text
    choices: 'photo', 'video', 'exit'
    enter choice > photo
@@ -47,8 +98,9 @@ pip install opencv-python insightface matplotlib
    output img path > /path/to/output_image.jpg
    ```
 
-   Example input for video:
+4. **Example input for video**:
 
+   When you choose the **'video'** option, the program will ask for the following paths:
    ```text
    choices: 'photo', 'video', 'exit'
    enter choice > video
@@ -56,3 +108,40 @@ pip install opencv-python insightface matplotlib
    deepfake img path > /path/to/deepfake_face.jpg
    output video path > /path/to/output_video.mp4
    ```
+
+### Example Code Usage
+
+If you want to use the generator programmatically in a Python script:
+
+```python
+model_url = "https://www.dropbox.com/scl/fi/tx59r655h4ke5414s80o3/inswapper_128.onnx?rlkey=p9ktqp27w1bxzc3s30dzb9832&st=du2h5t6t&dl=1"
+model_path = "inswapper_128.onnx"
+
+generator = DeepfakeGenerator(model_url, model_path)
+
+# Create photo deepfake
+generator.get_photo_deepfake("path_to_main_image.jpg", "path_to_deepfake_image.jpg", "output_image.jpg")
+
+# Create video deepfake
+generator.get_video_deepfake("path_to_video.mp4", "path_to_deepfake_image.jpg", "output_video.mp4")
+```
+
+---
+
+## Requirements
+
+### Required Python Libraries:
+
+This project requires the following Python libraries. You can install them using the provided `requirements.txt`.
+
+```txt
+opencv-python==4.7.0.72
+insightface==0.8.1
+matplotlib==3.7.1
+```
+
+To install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```

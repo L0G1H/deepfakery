@@ -56,8 +56,3 @@ pip install opencv-python insightface matplotlib
    deepfake img path > /path/to/deepfake_face.jpg
    output video path > /path/to/output_video.mp4
    ```
-
-## License
-
-This code is released under the MIT License. See the [LICENSE](LICENSE) file for more details.
-

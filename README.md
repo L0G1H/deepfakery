@@ -1,14 +1,6 @@
-Sure! Here's an updated version of the README with instructions on how to clone the repository, navigate to the project folder, and set up the environment for the deepfake generator.
-
----
-
 # Deepfake Generator
 
 This project implements a deepfake generator using the InsightFace library to swap faces between images or video frames. The primary functionality involves using a pre-trained model for face swapping on photos and videos. The generator takes a source image or video (main) and a target image (deepfake face) and creates a new image or video with the swapped faces.
-
-## Prerequisites
-
-Before running this project, you need to clone the repository and install the required dependencies.
 
 ## Setup Instructions
 
@@ -17,10 +9,8 @@ Before running this project, you need to clone the repository and install the re
 Start by cloning this repository to your local machine. Open a terminal and run:
 
 ```bash
-git clone https://github.com/yourusername/deepfake-generator.git
+git clone https://github.com/L0G1H/deepfake_generator.git
 ```
-
-Replace `https://github.com/yourusername/deepfake-generator.git` with the actual URL of the repository if it's hosted somewhere.
 
 ### 2. Navigate to the project folder
 
@@ -30,7 +20,7 @@ Change to the directory of the cloned repository:
 cd deepfake-generator
 ```
 
-### 3. Create and activate a virtual environment (Optional but recommended)
+### 3. Create and activate a virtual environment (Optional)
 
 It's recommended to create a virtual environment to manage the dependencies. Run the following commands to set up and activate the environment:
 
@@ -124,24 +114,4 @@ generator.get_photo_deepfake("path_to_main_image.jpg", "path_to_deepfake_image.j
 
 # Create video deepfake
 generator.get_video_deepfake("path_to_video.mp4", "path_to_deepfake_image.jpg", "output_video.mp4")
-```
-
----
-
-## Requirements
-
-### Required Python Libraries:
-
-This project requires the following Python libraries. You can install them using the provided `requirements.txt`.
-
-```txt
-opencv-python==4.7.0.72
-insightface==0.8.1
-matplotlib==3.7.1
-```
-
-To install the dependencies:
-
-```bash
-pip install -r requirements.txt
 ```

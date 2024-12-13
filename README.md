@@ -1,5 +1,5 @@
 # Deepfakery
-This repository provides a Python class for generating deepfake images and videos by swapping faces using a pre-trained deep learning model. It leverages the `insightface` library for face detection and swapping, OpenCV for video manipulation, and the ability to download the model if it's not present on your machine.
+This repository provides a Python class for generating deepfake images and videos by swapping faces using a pre-trained deep learning model.
 
 ## Features
 - Generate deepfake images by swapping faces in a photo.
@@ -25,7 +25,7 @@ Once the script is running, you will be presented with the following options:
 - **video**: Create a deepfake video by swapping faces in each frame.
 - **exit**: Exit the script.
 
-#### Photo Deepfake
+### Photo Deepfake
 
 1. Enter `photo` when prompted.
 2. Provide the path to the main image (the image in which the face will be swapped).
@@ -41,7 +41,7 @@ deepfake img path > /path/to/deepfake/face.png
 output img path > /path/to/output/image.jpeg
 ```
 
-#### Video Deepfake
+### Video Deepfake
 1. Enter `video` when prompted.
 2. Provide the path to the main video (the video in which faces will be swapped).
 3. Provide the path to the deepfake image (the image from which the face will be used).

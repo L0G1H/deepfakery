@@ -1,100 +1,63 @@
-# Deepfake Generator
+# Deepfakery
+This repository provides a Python class for generating deepfake images and videos by swapping faces using a pre-trained deep learning model. It leverages the `insightface` library for face detection and swapping, OpenCV for video manipulation, and the ability to download the model if it's not present on your machine.
 
-This project implements a deepfake generator using the InsightFace library to swap faces between images or video frames. The primary functionality involves using a pre-trained model for face swapping on photos and videos. The generator takes a source image or video (main) and a target image (deepfake face) and creates a new image or video with the swapped faces.
+## Features
+- Generate deepfake images by swapping faces in a photo.
+- Create deepfake videos by swapping faces in each frame of a video.
+- Download and cache the deepfake model if not already available locally.
+- User-friendly CLI interface for interacting with the script.
 
-## Setup Instructions
-
-### 1. Clone the repository
-
-Start by cloning this repository to your local machine. Open a terminal and run:
-
+## Setup
 ```bash
-git clone https://github.com/L0G1H/deepfake_generator.git
-```
-
-### 2. Navigate to the project folder
-
-Change to the directory of the cloned repository:
-
-```bash
-cd deepfake_generator
-```
-
-### 3. Create and activate a virtual environment (Optional)
-
-It's recommended to create a virtual environment to manage the dependencies. Run the following commands to set up and activate the environment:
-
-#### On macOS/Linux:
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-#### On Windows:
-
-```bash
-python -m venv venv
-.\venv\Scripts\activate
-```
-
-### 4. Install dependencies
-
-Once you are in the project folder and the virtual environment is activated, install the required dependencies using:
-
-```bash
+git clone https://github.com/L0G1H/deepfakery.git
+cd deepfakery
 pip install -r requirements.txt
 ```
 
-This will install all the libraries required to run the deepfake generator.
-
----
-
 ## Usage
+```bash
+python deepfakery.py
+```
 
-### 1. **Photo Deepfake**
+Once the script is running, you will be presented with the following options:
 
-You can swap faces between a target image (deepfake face) and a main image (the image where the face will be replaced).
+- **photo**: Create a deepfake image by swapping faces in a photo.
+- **video**: Create a deepfake video by swapping faces in each frame.
+- **exit**: Exit the script.
 
-### 2. **Video Deepfake**
+#### Photo Deepfake
 
-You can swap faces in a video by applying the face swapping process to each frame.
+1. Enter `photo` when prompted.
+2. Provide the path to the main image (the image in which the face will be swapped).
+3. Provide the path to the deepfake image (the image from which the face will be used).
+4. Specify the path where the output image will be saved.
 
----
+Example:
+```
+choices: "photo", "video", "exit"
+enter choice > photo
+main img path > /path/to/main/image.jpg
+deepfake img path > /path/to/deepfake/face.png
+output img path > /path/to/output/image.jpeg
+```
 
-### Running the Script
+#### Video Deepfake
+1. Enter `video` when prompted.
+2. Provide the path to the main video (the video in which faces will be swapped).
+3. Provide the path to the deepfake image (the image from which the face will be used).
+4. Specify the path where the output video will be saved.
 
-1. **Launch the program**:
+Example:
+```
+choices: "photo", "video", "exit"
+enter choice > video
+main video path > /path/to/main/video.mp4
+deepfake img path > /path/to/deepfake/face.jpg
+output video path > /path/to/output/video.mp4
+```
 
-   After installing the dependencies, simply run the Python script:
+### Exit
+To exit the program, simply enter `exit` when prompted.
 
-   ```bash
-   python deepfake.py
-   ```
-
-2. **Choices**: The program will prompt you to choose between the following options:
-   - **'photo'**: Swap faces between a photo and a deepfake face.
-   - **'video'**: Swap faces between a video and a deepfake face.
-   - **'exit'**: Exit the program.
-
-3. **Example input for photo**:
-
-   When you choose the **'photo'** option, the program will ask for the following paths:
-   ```text
-   choices: 'photo', 'video', 'exit'
-   enter choice > photo
-   main img path > /path/to/main_image.jpg
-   deepfake img path > /path/to/deepfake_face.jpg
-   output img path > /path/to/output_image.jpg
-   ```
-
-4. **Example input for video**:
-
-   When you choose the **'video'** option, the program will ask for the following paths:
-   ```text
-   choices: 'photo', 'video', 'exit'
-   enter choice > video
-   main video path > /path/to/main_video.mp4
-   deepfake img path > /path/to/deepfake_face.jpg
-   output video path > /path/to/output_video.mp4
-   ```
+## License
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.

@@ -11,7 +11,7 @@ This repository provides a Python class for generating deepfake images and video
 ```bash
 git clone https://github.com/L0G1H/deepfakery.git
 cd deepfakery
-pip install -r requirements.txt
+uv run deepfakery.py
 ```
 
 ## Usage

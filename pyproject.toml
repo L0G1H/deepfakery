@@ -1,0 +1,20 @@
+[project]
+name = "deepfakery"
+version = "1.0.0"
+description = "Terminal-based image and video deepfake generator"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "insightface>=0.7.3",
+    "onnxruntime>=1.20.1",
+]
+
+[project.scripts]
+deepfakery = "deepfakery.deepfakery:main"
+
+[tool.setuptools]
+packages = ["deepfakery"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

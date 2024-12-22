@@ -9,18 +9,17 @@ This repository provides a Python class for generating deepfake images and video
 
 ## Setup
 ```bash
-git clone https://github.com/L0G1H/deepfakery.git
-cd deepfakery
-uv run deepfakery.py
+pip install git+https://github.com/L0G1H/deepfakery.git
 ```
 
 ## Usage
+
+Start the client
 ```bash
-python deepfakery.py
+deepfakery
 ```
 
 Once the script is running, you will be presented with the following options:
-
 - **photo**: Create a deepfake image by swapping faces in a photo.
 - **video**: Create a deepfake video by swapping faces in each frame.
 - **exit**: Exit the script.

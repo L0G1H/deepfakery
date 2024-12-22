@@ -1,0 +1,1 @@
+from .deepfakery import main as main

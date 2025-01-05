@@ -203,7 +203,7 @@ class DeepfakeGenerator:
         print(f"{output_path} created.")
 
 
-if __name__ == "__main__":
+def main() -> None:
     model_url = (
         "https://www.dropbox.com/scl/fi/tx59r655h4ke5414s80o3/"
         "inswapper_128.onnx?rlkey=p9ktqp27w1bxzc3s30dzb9832&st=du2h5t6t&dl=1"
@@ -223,7 +223,7 @@ if __name__ == "__main__":
         if answer == "exit":
             break
 
-        elif answer == "photo":
+        if answer == "photo":
             main_img_path = input("main img path > ")
             deepfake_img_path = input("deepfake img path > ")
             output_img_path = input("output img path > ")
@@ -244,3 +244,6 @@ if __name__ == "__main__":
             print("invalid syntax")
 
         print()
+
+if __name__ == "__main__":
+    main()

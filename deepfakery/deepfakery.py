@@ -1,11 +1,15 @@
-import os
+#!usr/bin/python3
+
+import numpy as np
+import numpy.typing as npt
 import urllib.request
 import insightface
 import cv2
+from pathlib import Path
 
 
 class DeepfakeGenerator:
-    def __init__(self, model_url: str, model_path: str):
+    def __init__(self, model_url: str, model_path: str) -> None:
         self.model_url = model_url
         self.model_path = model_path
         self._download_model_if_needed()
@@ -15,8 +19,8 @@ class DeepfakeGenerator:
         self.app = insightface.app.FaceAnalysis(name="buffalo_l")
         self.app.prepare(ctx_id=0, det_size=(640, 640))
 
-    def _download_model_if_needed(self):
-        if not os.path.exists(self.model_path):
+    def _download_model_if_needed(self) -> None:
+        if not Path.exists(Path(self.model_path)):
             print(f"Model not found at {self.model_path}. Downloading...")
 
             try:
@@ -24,12 +28,14 @@ class DeepfakeGenerator:
                 print(f"Model downloaded to {self.model_path}")
             except Exception as e:
                 print(f"Failed to download the model: {e}")
-                raise e
+                raise
         else:
-            print(f"Model already exists at {self.model_path}. Using the existing model.")
+            print(f"Model already exists at {self.model_path}.")
 
     @staticmethod
-    def write_frames_to_video(frames, output_path: str, fps: float) -> None:
+    def write_frames_to_video(
+        frames: list[npt.NDArray[np.uint8]], output_path: str, fps: float
+    ) -> None:
         if not frames:
             print("No frames to write.")
             return
@@ -43,23 +49,25 @@ class DeepfakeGenerator:
 
         out.release()
 
-    def load_face(self, img, multiple: bool = False):
+    def load_face(self, img: npt.NDArray[np.uint8], multiple: bool = False) -> None:
         img_faces = self.app.get(img)
 
         if not img_faces:
             print("No faces detected.")
-            return [] if multiple else None
+            return None
 
         if multiple:
             return img_faces
-        else:
-            if len(img_faces) != 1:
-                print("Multiple faces detected, but only one was expected.")
-                return None
 
-            return img_faces[0]
+        if len(img_faces) != 1:
+            print("Multiple faces detected, but only one was expected.")
+            return None
 
-    def get_deepfake_frame(self, main_img, deepfake_face):
+        return img_faces[0]
+
+    def get_deepfake_frame(
+        self, main_img: npt.NDArray[np.uint8], deepfake_face: npt.NDArray[np.uint8]
+    ) -> npt.NDArray[np.uint8]:
         main_faces = self.load_face(main_img, multiple=True)
         if not main_faces:
             return main_img
@@ -71,7 +79,7 @@ class DeepfakeGenerator:
         return res
 
     @staticmethod
-    def extract_mp4_frames(mp4_path: str):
+    def extract_mp4_frames(mp4_path: str) -> tuple[list[npt.NDArray[np.uint8]], float]:
         cap = cv2.VideoCapture(mp4_path)
         if not cap.isOpened():
             print(f"Error: Could not open video file {mp4_path}")
@@ -91,12 +99,15 @@ class DeepfakeGenerator:
                     print(f"Reading frames: {i + 1}/{total_frames}")
         except Exception as e:
             print(f"Error while reading frames: {e}")
+            raise
         finally:
             cap.release()
 
         return frames, fps
 
-    def get_video_deepfake(self, main_video_path: str, deepfake_img_path: str, output_path: str):
+    def get_video_deepfake(
+        self, main_video_path: str, deepfake_img_path: str, output_path: str
+    ) -> None:
         print("Loading video...")
         cap = cv2.VideoCapture(main_video_path)
         if not cap.isOpened():
@@ -141,6 +152,7 @@ class DeepfakeGenerator:
 
         except Exception as e:
             print(f"Error during video processing: {e}")
+            raise
         finally:
             cap.release()
             out.release()
@@ -149,16 +161,16 @@ class DeepfakeGenerator:
 
     def get_photo_deepfake(
         self, main_img_path: str, deepfake_img_path: str, output_path: str
-    ):
-        main_img_path = os.path.expanduser(main_img_path)
-        deepfake_img_path = os.path.expanduser(deepfake_img_path)
-        output_path = os.path.expanduser(output_path)
+    ) -> None:
+        main_img_path = Path(main_img_path).expanduser()
+        deepfake_img_path = Path(deepfake_img_path).expanduser()
+        output_path = Path(output_path).expanduser()
 
-        if not os.path.exists(main_img_path):
+        if not Path(main_img_path).exists():
             print(f"Error: {main_img_path} does not exist.")
             return
 
-        if not os.path.exists(deepfake_img_path):
+        if not Path(deepfake_img_path).exists():
             print(f"Error: {deepfake_img_path} does not exist.")
             return
 
@@ -190,11 +202,13 @@ class DeepfakeGenerator:
         cv2.imwrite(output_path, res)
         print(f"{output_path} created.")
 
-def main():
+
+if __name__ == "__main__":
     model_url = (
-        "https://www.dropbox.com/scl/fi/tx59r655h4ke5414s80o3/inswapper_128.onnx?"
-        "rlkey=p9ktqp27w1bxzc3s30dzb9832&st=du2h5t6t&dl=1"
+        "https://www.dropbox.com/scl/fi/tx59r655h4ke5414s80o3/"
+        "inswapper_128.onnx?rlkey=p9ktqp27w1bxzc3s30dzb9832&st=du2h5t6t&dl=1"
     )
+
     model_path = "inswapper_128.onnx"
 
     generator = DeepfakeGenerator(model_url, model_path)
@@ -202,19 +216,21 @@ def main():
     print("\n" * 1000)
 
     while True:
-        print("choices: \"photo\", \"video\", \"exit\"")
+        print('choices: "photo", "video", "exit"')
 
         answer = input("enter choice > ").lower()
 
         if answer == "exit":
-            exit()
+            break
 
         elif answer == "photo":
             main_img_path = input("main img path > ")
             deepfake_img_path = input("deepfake img path > ")
             output_img_path = input("output img path > ")
 
-            generator.get_photo_deepfake(main_img_path, deepfake_img_path, output_img_path)
+            generator.get_photo_deepfake(
+                main_img_path, deepfake_img_path, output_img_path
+            )
 
         elif answer == "video":
             main_video_path = input("main video path > ")
@@ -228,7 +244,3 @@ def main():
             print("invalid syntax")
 
         print()
-
-
-if __name__ == "__main__":
-    main()

@@ -1,1 +1,3 @@
-from .deepfakery import main as main
+from .deepfakery import main
+
+__all__ = ["main"]

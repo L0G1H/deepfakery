@@ -204,7 +204,7 @@ class DeepfakeGenerator:
 
 
 def main() -> None:
-    model_url = "https://www.dropbox.com/scl/fi/tx59r655h4ke5414s80o3/inswapper_128.onnx?rlkey=p9ktqp27w1bxzc3s30dzb9832&st=4h1rmxq8&dl=0"
+    model_url = "https://www.dropbox.com/scl/fi/tx59r655h4ke5414s80o3/inswapper_128.onnx?rlkey=p9ktqp27w1bxzc3s30dzb9832&st=yxc54uuw&dl=1"
     model_path = "inswapper_128.onnx"
 
     generator = DeepfakeGenerator(model_url, model_path)

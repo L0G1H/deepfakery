@@ -204,11 +204,7 @@ class DeepfakeGenerator:
 
 
 def main() -> None:
-    model_url = (
-        "https://www.dropbox.com/scl/fi/tx59r655h4ke5414s80o3/"
-        "inswapper_128.onnx?rlkey=p9ktqp27w1bxzc3s30dzb9832&st=du2h5t6t&dl=1"
-    )
-
+    model_url = "https://www.dropbox.com/scl/fi/tx59r655h4ke5414s80o3/inswapper_128.onnx?rlkey=p9ktqp27w1bxzc3s30dzb9832&st=4h1rmxq8&dl=0"
     model_path = "inswapper_128.onnx"
 
     generator = DeepfakeGenerator(model_url, model_path)
@@ -244,6 +240,7 @@ def main() -> None:
             print("invalid syntax")
 
         print()
+
 
 if __name__ == "__main__":
     main()

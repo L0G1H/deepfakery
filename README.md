@@ -1,5 +1,5 @@
 # Deepfakery
-This repository provides a Python class for generating deepfake images and videos by swapping faces using a pre-trained deep learning model.
+This repository provides a CLI generating deepfake images and videos by swapping faces using a pre-trained deep learning model.
 
 ## Features
 - Generate deepfake images by swapping faces in a photo.
